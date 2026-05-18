@@ -18,10 +18,29 @@
   --text:    #2d2013;
   --muted:   #a08060;
   --card-r:  18px;
-  --game-max: min(90vw, 560px);
+  --game-max: min(90vw, 640px);
 }
 @media(max-width:599px){ :root{ --game-max:100%; } }
-@media(min-width:1200px){ :root{ --game-max:min(90vw,600px); } }
+/* ══ 태블릿 가로 (768~1024px) ══ */
+@media(min-width:768px) and (max-width:1024px){
+  .hud{ padding:14px 20px; }
+  .hud-val{ font-size:26px; }
+  .hud-label{ font-size:11px; }
+  .btn-hud-home{ font-size:13px; padding:9px 16px; }
+  .q-display{ font-size:clamp(64px,10vw,96px); }
+  .q-display.kr{ font-size:clamp(44px,7vw,68px); }
+  .q-mode-badge{ font-size:13px; padding:7px 20px; }
+  .q-sub{ font-size:14px; }
+  .choice-btn{ min-height:96px; padding:20px 12px; }
+  .choice-sym{ font-size:clamp(28px,4vw,38px); }
+  .choice-kr{ font-size:clamp(20px,3vw,28px); }
+  .feedback-bar{ font-size:15px; padding:12px 18px; }
+  .result-badge{ font-size:96px; }
+  .result-title{ font-size:clamp(32px,5vw,46px); }
+  .rs-val{ font-size:clamp(24px,4vw,34px); }
+}
+
+@media(min-width:1200px){ :root{ --game-max:min(90vw,660px); } }
 
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{
