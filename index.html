@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>원소 스피드 매칭</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&family=Noto+Sans+KR:wght@700;800;900&subset=korean&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:      #fffbf0;
@@ -26,7 +26,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{
   height:100%;background:var(--bg);color:var(--text);
-  font-family:'Noto Sans KR','Nunito',sans-serif;overflow-x:hidden;
+  font-family:'Noto Sans KR',sans-serif;overflow-x:hidden;
 }
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
@@ -40,7 +40,7 @@ body::before{
 /* ── 플로팅 배경 ── */
 .float-els{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
 .float-el{
-  position:absolute;font-family:'Baloo 2',sans-serif;font-weight:800;
+  position:absolute;font-family:'Noto Sans KR',sans-serif;font-weight:900;
   line-height:1;user-select:none;animation:floatUp linear infinite;
 }
 @keyframes floatUp{
@@ -62,59 +62,91 @@ body::before{
 .title-badge{
   display:inline-flex;align-items:center;gap:6px;
   background:linear-gradient(135deg,var(--accent2),var(--accent));
-  color:#fff;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
-  padding:5px 16px;border-radius:30px;margin-bottom:18px;
+  color:#fff;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  padding:6px 18px;border-radius:30px;margin-bottom:20px;
   box-shadow:0 4px 16px rgba(255,107,53,0.3);
 }
 .title-main{
-  font-family:'Baloo 2',sans-serif;
-  font-size:clamp(36px,7vw,72px);font-weight:800;line-height:1.1;
-  color:var(--text);margin-bottom:6px;
+  font-size:clamp(40px,7vw,90px);font-weight:900;line-height:1.05;
+  color:var(--text);margin-bottom:8px;letter-spacing:-1px;
 }
 .title-main span{color:var(--accent)}
 .title-sub{
-  font-size:clamp(13px,2vw,16px);color:var(--muted);
-  margin-bottom:32px;font-weight:700;
+  font-size:clamp(14px,2vw,20px);color:var(--muted);
+  margin-bottom:36px;font-weight:700;
 }
 .rules-wrap{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-  gap:10px;width:100%;max-width:560px;margin-bottom:28px;
+  display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
+  margin-bottom:36px;max-width:700px;
 }
 .rule-card{
   background:var(--surface);border:2px solid var(--border);border-radius:16px;
-  padding:16px;text-align:left;box-shadow:0 4px 16px rgba(0,0,0,0.06);
+  padding:16px 18px;flex:1;min-width:140px;text-align:left;
+  box-shadow:0 4px 16px rgba(0,0,0,0.06);
   transition:transform 0.15s;
 }
 .rule-card:hover{transform:translateY(-3px)}
-.rule-icon{font-size:24px;margin-bottom:6px}
-.rule-title{font-size:12px;font-weight:800;color:var(--accent);margin-bottom:2px}
-.rule-desc{font-size:11px;color:var(--muted);line-height:1.5;font-weight:600}
+.rule-icon{font-size:26px;margin-bottom:8px}
+.rule-title{font-size:13px;font-weight:800;color:var(--accent);margin-bottom:3px}
+.rule-desc{font-size:12px;color:var(--muted);line-height:1.5;font-weight:600}
+
+@media (min-width:768px){
+  .rules-wrap{ max-width:900px; }
+  .rule-card{ padding:20px 22px; }
+  .rule-icon{ font-size:32px; }
+  .rule-title{ font-size:15px; }
+  .rule-desc{ font-size:13px; }
+}
+
 .btn-start{
   display:inline-flex;align-items:center;gap:10px;
   background:linear-gradient(135deg,var(--accent),#ff8c42);
-  color:#fff;font-size:17px;font-weight:800;
-  padding:15px 48px;border-radius:50px;border:none;cursor:pointer;
+  color:#fff;font-size:18px;font-weight:800;
+  padding:16px 52px;border-radius:50px;border:none;cursor:pointer;
   box-shadow:0 6px 24px rgba(255,107,53,0.4);
-  transition:transform 0.15s,box-shadow 0.15s;font-family:'Nunito',sans-serif;
+  transition:transform 0.15s,box-shadow 0.15s;
+  font-family:'Noto Sans KR',sans-serif;
 }
 .btn-start:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 10px 32px rgba(255,107,53,0.5)}
+.btn-start:active{transform:scale(0.98)}
+
+@media (min-width:768px){
+  .btn-start{ font-size:20px; padding:18px 64px; }
+}
+
 .lb-preview{
   background:var(--surface);border:2px solid var(--border);border-radius:var(--card-r);
-  padding:16px 20px;width:100%;max-width:440px;margin-top:18px;
+  padding:18px 22px;width:100%;max-width:420px;margin-top:20px;
   box-shadow:0 4px 20px rgba(0,0,0,0.07);
 }
-.lb-title{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
-.lb-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border)}
+@media (min-width:768px){ .lb-preview{ max-width:560px; } }
+.lb-title{
+  font-size:13px;font-weight:800;color:var(--muted);
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;
+  display:flex;align-items:center;gap:6px;
+}
+.lb-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
 .lb-row:last-child{border-bottom:none}
-.lb-name{flex:1;font-size:13px;font-weight:700}
-.lb-score{font-size:13px;font-weight:800;color:var(--accent)}
-.lb-time{font-size:11px;color:var(--muted);font-weight:700}
+.lb-rank{font-size:16px;width:26px;text-align:center;flex-shrink:0}
+.lb-name{flex:1;font-size:14px;font-weight:700;color:var(--text)}
+.lb-score{font-size:14px;font-weight:800;color:var(--accent)}
+.lb-time{font-size:11px;color:var(--muted);font-weight:700;margin-left:4px}
+
+
+.btn-hud-home{
+  display:flex;align-items:center;gap:5px;
+  background:var(--surface);border:2px solid var(--border);border-radius:10px;
+  padding:7px 14px;cursor:pointer;font-size:12px;font-weight:800;
+  color:var(--muted);font-family:'Noto Sans KR',sans-serif;
+  transition:all 0.15s;white-space:nowrap;
+}
+.btn-hud-home:hover{border-color:var(--accent);color:var(--accent);background:#fff3ec;}
 
 /* ════════ NAME ════════ */
 #screen-name{text-align:center}
 .name-bubble{font-size:64px;margin-bottom:10px;animation:wiggle 2s ease-in-out infinite}
 @keyframes wiggle{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
-.name-title{font-family:'Baloo 2',sans-serif;font-size:clamp(22px,4vw,32px);font-weight:800;margin-bottom:4px}
+.name-title{font-size:clamp(22px,4vw,32px);font-weight:900;margin-bottom:4px;letter-spacing:-0.5px;}
 .name-sub{font-size:13px;color:var(--muted);margin-bottom:24px;font-weight:700}
 .name-input{
   background:var(--surface);border:3px solid var(--border);border-radius:14px;
@@ -130,7 +162,7 @@ body::before{
   color:#fff;font-size:15px;font-weight:800;
   padding:13px 40px;border-radius:50px;border:none;cursor:pointer;
   box-shadow:0 6px 20px rgba(255,107,53,0.35);
-  transition:transform 0.15s;font-family:'Nunito',sans-serif;
+  transition:transform 0.15s;font-family:'Noto Sans KR',sans-serif;
 }
 .btn-name:hover{transform:translateY(-2px)}
 
@@ -152,7 +184,7 @@ body::before{
 }
 .hud-item{display:flex;flex-direction:column;align-items:center;gap:2px}
 .hud-label{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
-.hud-val{font-size:22px;font-weight:900;font-family:'Baloo 2',sans-serif}
+.hud-val{font-size:22px;font-weight:900;}
 .hud-val.accent{color:var(--accent)}
 .hud-val.green{color:var(--green)}
 .hud-val.yellow{color:#d97706}
@@ -203,12 +235,10 @@ body::before{
   margin-bottom:10px;
 }
 .q-display{
-  font-family:'Baloo 2',sans-serif;
-  font-size:clamp(52px,10vw,88px);font-weight:800;
-  color:var(--text);line-height:1.1;margin-bottom:6px;
+  font-size:clamp(52px,10vw,88px);font-weight:900;
+  color:var(--text);line-height:1.1;margin-bottom:6px;letter-spacing:-1px;
 }
 .q-display.kr{
-  font-family:'Noto Sans KR',sans-serif;
   font-size:clamp(36px,7vw,60px);font-weight:900;
 }
 .q-sub{
@@ -232,11 +262,9 @@ body::before{
   transform:translateY(-2px);box-shadow:0 4px 16px rgba(255,193,7,0.25);
 }
 .choice-sym{
-  font-family:'Baloo 2',sans-serif;
-  font-size:clamp(22px,4vw,32px);font-weight:800;color:var(--text);line-height:1;
+  font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--text);line-height:1;
 }
 .choice-kr{
-  font-family:'Noto Sans KR',sans-serif;
   font-size:clamp(16px,3vw,22px);font-weight:800;color:var(--text);line-height:1.2;
 }
 .choice-num{
@@ -276,12 +304,12 @@ body::before{
 }
 .result-badge{font-size:80px;display:block;animation:popIn 0.6s cubic-bezier(0.34,1.56,0.64,1);margin-bottom:6px}
 @keyframes popIn{from{transform:scale(0) rotate(-20deg);opacity:0}to{transform:scale(1);opacity:1}}
-.result-title{font-family:'Baloo 2',sans-serif;font-size:clamp(26px,5vw,40px);font-weight:800;margin-bottom:4px}
+.result-title{font-size:clamp(26px,5vw,40px);font-weight:900;margin-bottom:4px;letter-spacing:-0.5px;}
 .result-name{font-size:15px;color:var(--muted);margin-bottom:22px;font-weight:700}
 .result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;margin-bottom:20px}
 .rs-card{background:var(--surface);border:2px solid var(--border);border-radius:16px;padding:16px 8px;box-shadow:0 3px 12px rgba(0,0,0,0.06)}
 .rs-label{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
-.rs-val{font-family:'Baloo 2',sans-serif;font-size:clamp(20px,4vw,30px);font-weight:800}
+.rs-val{font-size:clamp(20px,4vw,30px);font-weight:900;}
 .rs-val.green{color:var(--green)}
 .rs-val.yellow{color:#d97706}
 .rs-val.accent{color:var(--accent)}
@@ -294,8 +322,8 @@ body::before{
   padding:11px 14px;margin-bottom:7px;box-shadow:0 2px 10px rgba(0,0,0,0.05);
   display:flex;align-items:center;gap:12px;
 }
-.ri-q{font-family:'Baloo 2',sans-serif;font-size:22px;font-weight:800;color:var(--accent);min-width:48px}
-.ri-q.kr{font-family:'Noto Sans KR',sans-serif;font-size:16px}
+.ri-q{font-size:22px;font-weight:900;color:var(--accent);min-width:48px}
+.ri-q.kr{font-size:16px}
 .ri-info{flex:1}
 .ri-correct{font-size:13px;font-weight:800;color:var(--green)}
 .ri-yours{font-size:12px;color:var(--red);font-weight:700}
@@ -314,14 +342,14 @@ body::before{
 .btn-group{display:flex;gap:10px;width:100%}
 .btn-retry{
   flex:1;padding:15px;border-radius:14px;cursor:pointer;
-  font-size:15px;font-weight:800;font-family:'Nunito',sans-serif;
+  font-size:15px;font-weight:800;font-family:'Noto Sans KR',sans-serif;
   background:var(--surface);color:var(--text);
   border:2px solid var(--border);transition:all 0.15s;
 }
 .btn-retry:hover{border-color:var(--accent2);background:#fff8e6;transform:translateY(-2px)}
 .btn-home{
   flex:1;padding:15px;border-radius:14px;cursor:pointer;
-  font-size:15px;font-weight:800;font-family:'Nunito',sans-serif;
+  font-size:15px;font-weight:800;font-family:'Noto Sans KR',sans-serif;
   background:linear-gradient(135deg,var(--accent),#ff8c42);
   color:#fff;border:none;box-shadow:0 4px 16px rgba(255,107,53,0.35);transition:all 0.15s;
 }
@@ -330,6 +358,23 @@ body::before{
 /* 폭죽 */
 .particle{position:fixed;pointer-events:none;z-index:999;border-radius:50%;animation:burst 0.8s ease-out forwards}
 @keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
+
+/* ── 탐험맵 돌아가기 버튼 ── */
+.map-btn-wrap{position:absolute;top:20px;left:20px;z-index:10;}
+.map-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  color:#5c7a2e;font-size:13px;font-weight:700;text-decoration:none;
+  border:2px solid #b5d97a;border-radius:24px;
+  padding:8px 18px;background:#f0fde0;
+  transition:all .2s;box-shadow:0 2px 8px rgba(100,160,50,.15);
+  font-family:'Noto Sans KR',sans-serif;
+}
+.map-btn::before{content:"←";font-size:14px;}
+.map-btn:hover{background:#d4f5a0;border-color:#8ac840;transform:translateX(-2px);}
+@media(max-width:599px){
+  .map-btn{font-size:11px;padding:6px 12px;}
+  .map-btn-wrap{top:12px;left:12px;}
+}
 </style>
 </head>
 <body>
@@ -338,6 +383,8 @@ body::before{
 
 <!-- ══ TITLE ══ -->
 <div class="page" id="screen-title">
+  <div class="map-btn-wrap"><a class="map-btn" href="https://lm99015-cyber.github.io/game_level/">원소 게임 탐험맵으로</a></div>
+
   <div class="title-badge">⚡ Speed Matching</div>
   <div class="title-main">⚗️ 원소 <span>매칭</span> 🧪</div>
   <div class="title-sub">영문 기호와 한글 이름을 빠르게 연결하세요!</div>
@@ -401,21 +448,19 @@ body::before{
       <div class="hud-label">정답</div>
       <div class="hud-val yellow" id="hud-correct">0</div>
     </div>
+    <button class="btn-hud-home" onclick="stopTimer();goName()">← 처음으로</button>
+    <button class="btn-hud-home" onclick="window.location.href='https://lm99015-cyber.github.io/game_level/'">🗺️ 탐험맵</button>
   </div>
   <div class="progress-wrap"><div class="progress-bar" id="progress-bar" style="width:5%"></div></div>
   <div class="timer-wrap"><div class="timer-bar" id="timer-bar" style="width:100%"></div></div>
 
-  <!-- 문제 카드 -->
   <div class="question-card">
     <div class="q-mode-badge" id="q-mode-badge"></div>
     <div class="q-display" id="q-display"></div>
     <div class="q-sub" id="q-sub"></div>
   </div>
 
-  <!-- 피드백 -->
   <div class="feedback-bar" id="feedback-bar"></div>
-
-  <!-- 보기 -->
   <div class="choices-grid" id="choices-grid"></div>
 </div>
 
@@ -452,7 +497,7 @@ body::before{
 
   <div class="btn-group">
     <button class="btn-retry" onclick="retryGame()">🔄 다시 도전</button>
-    <button class="btn-home" onclick="goHome()">🏠 홈으로</button>
+    <button class="btn-home" onclick="goHome()">원소 게임 탐험맵으로</button>
   </div>
 </div>
 
@@ -526,7 +571,7 @@ function showScreen(id){
   });
 }
 function goName(){ showScreen('screen-name'); setTimeout(()=>document.getElementById('name-input').focus(),100); }
-function goHome(){ renderLbPreview(); showScreen('screen-title'); }
+function goHome(){window.location.href='https://lm99015-cyber.github.io/game_level/';}
 function retryGame(){ showScreen('screen-name'); }
 document.getElementById('name-input').addEventListener('keydown',e=>{ if(e.key==='Enter') startGame(); });
 
@@ -570,15 +615,12 @@ function startGame(){
   const n=document.getElementById('name-input').value.trim();
   if(!n){document.getElementById('name-input').focus();return;}
   playerName=n;
-
-  /* 20문항: 각 원소 1번씩, 방향 랜덤 */
   const pool=[...ELEMENTS];
   shuffle(pool);
   questions=pool.map(el=>({
     el,
     mode: Math.random()<0.5 ? 'sym2kr' : 'kr2sym'
   }));
-
   qIndex=0; score=0; streak=0; maxStreak=0; correctCount=0; results=[];
   showScreen('screen-game');
   renderQuestion();
@@ -594,38 +636,27 @@ function shuffle(arr){
 /* ── 타이머 ── */
 function startQuestionTimer(){
   clearInterval(timerID); clearInterval(timerBarID);
-  timerLeft=TIMER_SEC*10; // 0.1초 단위
+  timerLeft=TIMER_SEC*10;
   document.getElementById('timer-bar').style.width='100%';
-  document.getElementById('timer-bar').style.background='linear-gradient(90deg,var(--green),var(--accent2),var(--red))';
-
   timerBarID=setInterval(()=>{
     timerLeft--;
     const pct=Math.max(0,(timerLeft/(TIMER_SEC*10))*100);
     document.getElementById('timer-bar').style.width=pct+'%';
-    if(timerLeft<=0){
-      clearInterval(timerBarID);
-      onTimeout();
-    }
+    if(timerLeft<=0){ clearInterval(timerBarID); onTimeout(); }
   },100);
 }
 
-function stopTimer(){
-  clearInterval(timerID);
-  clearInterval(timerBarID);
-}
+function stopTimer(){ clearInterval(timerID); clearInterval(timerBarID); }
 
 /* ── 문제 렌더 ── */
 function renderQuestion(){
   const {el, mode}=questions[qIndex];
-  selected=null;
-
   document.getElementById('hud-q').textContent=`${qIndex+1}/20`;
   document.getElementById('hud-score').textContent=score;
   document.getElementById('hud-streak').textContent=`🔥 ${streak}`;
   document.getElementById('hud-correct').textContent=correctCount;
   document.getElementById('progress-bar').style.width=`${(qIndex/20)*100+5}%`;
 
-  /* 모드 배지 */
   const badge=document.getElementById('q-mode-badge');
   const display=document.getElementById('q-display');
   const sub=document.getElementById('q-sub');
@@ -642,11 +673,9 @@ function renderQuestion(){
     sub.textContent=`원자번호 ${el.num}`;
   }
 
-  /* 피드백 숨김 */
   const fb=document.getElementById('feedback-bar');
   fb.style.display='none'; fb.className='feedback-bar';
 
-  /* 보기 생성: 정답 1 + 오답 3 */
   const others=ELEMENTS.filter(e=>e.sym!==el.sym);
   shuffle(others);
   const choices=[el, ...others.slice(0,3)];
@@ -658,13 +687,11 @@ function renderQuestion(){
     const btn=document.createElement('div');
     btn.className='choice-btn';
     btn.dataset.sym=c.sym;
-
     if(mode==='sym2kr'){
       btn.innerHTML=`<div class="choice-kr">${c.kr}</div>`;
     } else {
       btn.innerHTML=`<div class="choice-sym">${c.sym}</div>`;
     }
-
     btn.addEventListener('click',()=>selectAnswer(c.sym, el.sym, btn));
     grid.appendChild(btn);
   });
@@ -675,41 +702,32 @@ function renderQuestion(){
 /* ── 답 선택 ── */
 function selectAnswer(chosen, correct, btn){
   stopTimer();
-  const isCorrect=chosen===correct;
-  processResult(isCorrect, chosen, correct, btn);
+  processResult(chosen===correct, chosen, correct, btn);
 }
 
 /* ── 시간 초과 ── */
 function onTimeout(){
   stopTimer();
-  /* 정답 버튼 찾기 */
   const correct=questions[qIndex].el.sym;
   const grid=document.getElementById('choices-grid');
-  const allBtns=grid.querySelectorAll('.choice-btn');
-  allBtns.forEach(b=>b.classList.add('disabled'));
+  grid.querySelectorAll('.choice-btn').forEach(b=>b.classList.add('disabled'));
   const correctBtn=grid.querySelector(`[data-sym="${correct}"]`);
   if(correctBtn) correctBtn.classList.add('correct');
 
   const fb=document.getElementById('feedback-bar');
-  fb.style.display='block';
-  fb.className='feedback-bar timeout';
+  fb.style.display='block'; fb.className='feedback-bar timeout';
   fb.textContent=`⏰ 시간 초과! 정답: ${questions[qIndex].el.sym} (${questions[qIndex].el.kr})`;
-
   streak=0;
   document.getElementById('hud-streak').textContent=`🔥 ${streak}`;
   results.push({correct:false, timeout:true, el:questions[qIndex].el, chosen:null});
-
   setTimeout(next, 1600);
 }
 
 function processResult(isCorrect, chosen, correctSym, clickedBtn){
   const q=questions[qIndex];
   const grid=document.getElementById('choices-grid');
-  const allBtns=grid.querySelectorAll('.choice-btn');
-  allBtns.forEach(b=>b.classList.add('disabled'));
-
+  grid.querySelectorAll('.choice-btn').forEach(b=>b.classList.add('disabled'));
   const correctBtn=grid.querySelector(`[data-sym="${correctSym}"]`);
-
   const fb=document.getElementById('feedback-bar');
   fb.style.display='block';
 
@@ -739,19 +757,13 @@ function processResult(isCorrect, chosen, correctSym, clickedBtn){
   }
 }
 
-function next(){
-  qIndex++;
-  if(qIndex>=20) endGame();
-  else renderQuestion();
-}
+function next(){ qIndex++; if(qIndex>=20) endGame(); else renderQuestion(); }
 
 /* ── 게임 종료 ── */
 function endGame(){
   stopTimer();
   const pct=Math.round(correctCount/20*100);
-  const finalScore=score;
-
-  const entry={name:playerName,score:finalScore,correct:correctCount,streak:maxStreak};
+  const entry={name:playerName,score,correct:correctCount,streak:maxStreak};
   saveLb(entry);
 
   const badge=pct===100?'🏆':pct>=80?'🎉':pct>=60?'😊':pct>=40?'😅':'😢';
@@ -761,10 +773,9 @@ function endGame(){
   document.getElementById('result-title').textContent=title;
   document.getElementById('result-name').textContent=`${playerName}님의 결과`;
   document.getElementById('rs-correct').textContent=`${correctCount}/20`;
-  document.getElementById('rs-score').textContent=`${finalScore}점`;
+  document.getElementById('rs-score').textContent=`${score}점`;
   document.getElementById('rs-streak').textContent=`${maxStreak}연속`;
 
-  /* 오답 리뷰 */
   const reviewWrap=document.getElementById('review-wrap');
   const wrongs=results.filter(r=>!r.correct);
   if(wrongs.length){
@@ -779,9 +790,7 @@ function endGame(){
             <div class="ri-yours">${r.timeout?'⏰ 시간 초과':'내 답: '+(r.chosen||'없음')}</div>
           </div>
         </div>`).join('');
-  } else {
-    reviewWrap.innerHTML='';
-  }
+  } else { reviewWrap.innerHTML=''; }
 
   renderLbTable(entry);
   showScreen('screen-result');
