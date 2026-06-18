@@ -175,8 +175,18 @@ body::before{
 .lb-title{
   font-size:13px;font-weight:800;color:var(--muted);
   letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;
-  display:flex;align-items:center;gap:6px;
+  display:flex;align-items:center;gap:6px;justify-content:space-between;
 }
+
+/* 리더보드 이미지 저장 버튼 기능 : 시작 화면의 리더보드를 이미지로 저장하는 작은 버튼입니다. */
+.btn-lb-save{
+  background:none;border:1.5px solid var(--border);border-radius:8px;
+  padding:4px 10px;font-size:11px;font-weight:800;color:var(--muted);
+  cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:0;text-transform:none;
+  display:flex;align-items:center;gap:4px;transition:all 0.15s;flex-shrink:0;
+}
+.btn-lb-save:hover{border-color:var(--blue);color:var(--blue);background:#eff6ff;}
+.btn-lb-save:disabled{opacity:0.5;cursor:not-allowed;}
 .lb-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
 .lb-row:last-child{border-bottom:none}
 .lb-rank{font-size:16px;width:26px;text-align:center;flex-shrink:0}
@@ -401,7 +411,7 @@ body::before{
 .time-cell{color:var(--muted);font-size:12px}
 
 /* 결과 화면 버튼 기능 : 다시 도전·게임존으로 가는 버튼들입니다. */
-.btn-group{display:flex;gap:10px;width:100%}
+.btn-group{display:flex;gap:10px;width:100%;flex-wrap:wrap;}
 .btn-retry{
   flex:1;padding:15px;border-radius:14px;cursor:pointer;
   font-size:15px;font-weight:800;font-family:'Noto Sans KR',sans-serif;
@@ -421,7 +431,27 @@ body::before{
 .particle{position:fixed;pointer-events:none;z-index:999;border-radius:50%;animation:burst 0.8s ease-out forwards}
 @keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
 
-/* 게임존 돌아가기 버튼 기능 : 화면 왼쪽 위에 고정된, 게임 레벨 선택 페이지로 가는 버튼입니다. */
+/* 결과 이미지 저장 버튼 기능 : 리더보드 결과를 이미지로 다운받는 버튼입니다. */
+.btn-print{
+  flex-basis:100%;padding:13px;border-radius:14px;cursor:pointer;
+  font-size:14px;font-weight:800;font-family:'Noto Sans KR',sans-serif;
+  background:var(--surface);color:var(--muted);
+  border:2px solid var(--border);transition:all 0.15s;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.btn-print:hover{border-color:var(--blue);color:var(--blue);background:#eff6ff;transform:translateY(-2px)}
+.btn-print:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+/* 이미지 저장 헤더 기능 : 이미지로 저장할 때만 보이는 제목과 날짜입니다. */
+.print-header{
+  display:none;text-align:center;
+  padding:14px 0 12px;margin-bottom:4px;
+  border-bottom:2px solid #e0d0b0;
+}
+.print-title{font-size:16px;font-weight:900;color:var(--text);margin-bottom:2px;letter-spacing:-0.5px;}
+.print-meta{font-size:11px;color:var(--muted);font-weight:700;}
+
+/* 결과 이미지 저장 버튼 기능 : 리더보드 결과를 이미지로 다운받는 버튼입니다. */
 .map-btn-wrap{position:absolute;top:20px;left:20px;z-index:10;}
 .map-btn{
   display:inline-flex;align-items:center;gap:5px;
@@ -485,7 +515,10 @@ body::before{
 
   <!-- 리더보드 미리보기 기능 : 이전 기록이 있으면 상위 순위를 보여 줍니다. -->
   <div class="lb-preview" id="lb-preview" style="display:none">
-    <div class="lb-title">🏆 리더보드</div>
+    <div class="lb-title">
+      <span>🏆 리더보드</span>
+      <button class="btn-lb-save" onclick="saveLbImage()">📥 이미지로 저장</button>
+    </div>
     <div id="lb-preview-rows"></div>
   </div>
 </div>
@@ -542,6 +575,12 @@ body::before{
 
 <!-- 결과 화면 기능 : 등급·점수·통계·오답 리뷰·리더보드와 버튼을 보여 줍니다. -->
 <div class="page hidden" id="screen-result">
+  <!-- 인쇄 전용 헤더 기능 : 인쇄할 때만 보이는 제목과 날짜·이름을 담습니다. -->
+  <div class="print-header">
+    <div class="print-title">⚗️ 원소 매칭 게임 결과</div>
+    <div class="print-meta" id="print-meta"></div>
+  </div>
+
   <div class="result-badge" id="result-badge">🎉</div>
   <div class="result-title" id="result-title"></div>
   <div class="result-name" id="result-name"></div>
@@ -578,6 +617,7 @@ body::before{
   <div class="btn-group">
     <button class="btn-retry" onclick="retryGame()">🔄 다시 도전</button>
     <button class="btn-home" onclick="goHome()">🎮 원소 게임존</button>
+    <button class="btn-print" onclick="saveResultImage()">📥 이미지로 저장</button>
   </div>
 </div>
 
@@ -897,8 +937,91 @@ function endGame(){
   }
 }
 
+/* 결과 이미지 저장 기능 : html2canvas로 결과 화면을 캡처해 PNG 파일로 다운받습니다. */
+async function saveResultImage(){
+  const btn=document.querySelector('.btn-print');
+  const header=document.querySelector('.print-header');
+  const floatEls=document.getElementById('float-els');
+  const resultEl=document.getElementById('screen-result');
+
+  /* 버튼 로딩 상태 전환 기능 : 생성 중임을 표시하고 중복 클릭을 막습니다. */
+  btn.textContent='⏳ 이미지 생성 중...';
+  btn.disabled=true;
+
+  /* 캡처 헤더 채우기 기능 : 이름과 현재 날짜·시각을 헤더에 씁니다. */
+  const now=new Date().toLocaleString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('print-meta').textContent=`${playerName} 님  ·  ${now}`;
+
+  /* 캡처 전 임시 스타일 적용 기능 : 헤더를 보이게 하고, 배경 원소와 여백을 정리합니다. */
+  header.style.display='block';
+  floatEls.style.visibility='hidden';
+  const origMin=resultEl.style.minHeight;
+  const origJustify=resultEl.style.justifyContent;
+  const origPadTop=resultEl.style.paddingTop;
+  resultEl.style.minHeight='auto';
+  resultEl.style.justifyContent='flex-start';
+  resultEl.style.paddingTop='20px';
+
+  try{
+    const canvas=await html2canvas(resultEl,{
+      backgroundColor:'#fffbf0',
+      scale:2,
+      useCORS:true,
+      logging:false,
+      ignoreElements:el=>el===floatEls
+    });
+
+    /* 파일 다운로드 기능 : 캡처된 캔버스를 PNG로 변환해 자동 다운로드합니다. */
+    const date=new Date().toLocaleDateString('ko-KR').replace(/\. /g,'-').replace('.','');
+    const link=document.createElement('a');
+    link.download=`원소매칭_${playerName}_${date}.png`;
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+  } catch(e){
+    alert('이미지 생성에 실패했습니다. 다시 시도해 주세요.');
+    console.error(e);
+  }
+
+  /* 캡처 후 원상 복구 기능 : 헤더를 숨기고 스타일을 원래대로 되돌립니다. */
+  header.style.display='none';
+  floatEls.style.visibility='';
+  resultEl.style.minHeight=origMin;
+  resultEl.style.justifyContent=origJustify;
+  resultEl.style.paddingTop=origPadTop;
+  btn.textContent='📥 이미지로 저장';
+  btn.disabled=false;
+}
+
+/* 리더보드 이미지 저장 기능 : 시작 화면의 리더보드 카드를 PNG로 캡처해 다운받습니다. */
+async function saveLbImage(){
+  const btn=document.querySelector('.btn-lb-save');
+  const lbEl=document.getElementById('lb-preview');
+  btn.textContent='⏳';
+  btn.disabled=true;
+  try{
+    const canvas=await html2canvas(lbEl,{
+      backgroundColor:'#ffffff',
+      scale:2,
+      useCORS:true,
+      logging:false
+    });
+    const date=new Date().toLocaleDateString('ko-KR').replace(/\. /g,'-').replace('.','');
+    const link=document.createElement('a');
+    link.download=`원소매칭_리더보드_${date}.png`;
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+  } catch(e){
+    alert('이미지 생성에 실패했습니다.');
+    console.error(e);
+  }
+  btn.innerHTML='📥 이미지로 저장';
+  btn.disabled=false;
+}
+
 /* 첫 화면 리더보드 표시 실행 기능 : 페이지가 열릴 때 리더보드 미리보기를 한 번 그립니다. */
 renderLbPreview();
 </script>
+<!-- html2canvas 라이브러리 기능 : 결과 화면을 이미지로 캡처할 때 사용합니다. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
